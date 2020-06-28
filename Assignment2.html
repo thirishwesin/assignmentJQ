@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assignment 2</title>
+	<link rel="stylesheet" type="text/css" href="JQ/css/bootstrap.min.css">
+	<script type="text/javascript" src="JQ/jquery.min.js"></script>
+	<script type="text/javascript" src="JQ/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+	  <script>    
+        //cdn//    
+        $(document).ready(function(){    
+            $('.btnadd').click(function(){
+				Add();
+
+			});
+			$('.btnsub').click(function(){
+				Sub();
+
+			});
+			$('.btnmultiply').click(function(){
+				Multiply();
+
+			});
+			$('.btndivide').click(function(){
+				Divide();
+
+			}); 
+        });    
+        function Add(){
+			var add=parseInt($('#txtNo1').val())+parseInt($('#txtNo2').val());
+			$('#rs').text(add);
+		}
+		function Sub(){
+			var sub=parseInt($('#txtNo1').val())-parseInt($('#txtNo2').val());
+			$('#rs').text(sub);
+		}
+		function Multiply(){
+			var mul=parseInt($('#txtNo1').val())*parseInt($('#txtNo2').val());
+			$('#rs').text(mul);
+		}
+		function Divide(){
+			var div=parseInt($('#txtNo1').val())/parseInt($('#txtNo2').val());
+			$('#rs').text(div);
+		}
+    </script> 
+
+</head>
+<body>
+
+
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Calculator</h1>
+    
+  </div>
+</div>
+
+<div class="container">
+		<div class="offset-3">
+			<form>
+			<div class="form-group row">
+		<label for="name" class="col-md-3">First Number:</label>   
+		<div class="col-md-5"> <input type="text" id="txtNo1" placeholder="Enter first number"></div><br>
+		</div>
+	   <div class="form-group row">    
+        <label for="name" class="col-md-3">Second Number:</label>
+        <div class="col-md-5"><input type="text" id="txtNo2" placeholder="Enter second number"></div><br>
+    </div> 
+    </form>
+
+        <div class="row">
+						<div class="col-md-2 my-2">  
+         <button class="btnadd text-primary border-primary px-5" value="+"> + </button> </div>
+         <div class="col-md-2 my-2">
+         <button class="btnsub text-primary border-primary px-5" value="-"> - </button> </div>
+        <div class="col-md-2 my-2">   
+         <button class="btnmultiply text-primary border-primary px-5" value="*"> * </button> </div>
+        <div class="col-md-2 my-2"> 
+         <button class="btndivide text-primary border-primary px-5" value="/"> / </button> </div>
+        </div><br>   
+	
+        <div class="row">
+		&nbsp;&nbsp;<h4>Result is: <span class="text-danger" id="rs"> </span></h4>
+
+	    </div>
+</div>
+
+
+
+	
+
+
+</body>
+</html>

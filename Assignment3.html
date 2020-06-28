@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Home Loan Calculator</title>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<!-- logo -->
+	 
+
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="JQ/css/bootstrap.min.css">
+
+	<style type="text/css">
+		.display-4 {
+			font-size: 2.7rem !important;
+		}
+		.tableheading {
+			background-color: #D2EBF7;
+		}
+		.btn-info {
+			background-color: #0495C6 !important;
+		}
+		.btn-info:hover {
+			opacity: 0.9;
+		}
+		.btn-info:focus {
+			opacity: 0.85;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h2 class="display-4">Home Loan Calculator </h2>
+			<p>To Calculate Apartment House Loan</p>
+		</div>
+	</div>
+
+	<div class="container pt-3 pb-4">
+
+		<form>
+			<div class="row mb-3 offset-lg-2">
+				<label class="col-form-label col-4 col-lg-3" for="loanamount">Loan Amount : </label>
+				<div class="col-8 col-lg-6">
+					<input type="number" name="loanamount" class="form-control" id="loanamount" placeholder="0" min="0">
+				</div>
+			</div>
+
+			<div class="row mb-3 offset-lg-2">
+				<label class="col-form-label col-4 col-lg-3" for="interestrate">Rate(%) : </label>
+				<div class="col-8 col-lg-6">
+					<input type="number" name="interestrate" class="form-control" id="interestrate" placeholder="0" min="0">
+				</div>
+			</div>
+
+			<div class="row mb-3 offset-lg-2">
+				<label class="col-form-label col-4 col-lg-3" for="termofyear">Borrowed Year : </label>
+				<div class="col-8 col-lg-6">
+					<input type="number" name="termofyear" class="form-control" id="termofyear" placeholder="0" min="0">
+				</div>
+			</div>
+
+			<div class="row offset-lg-2">
+				<div class="col-12 col-lg-9">
+					<button type="button" class="btn btn-info btn-block mt-3 pt-2 pb-3" id="btn-calculate">Calculate</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+
+		<!-- result -->
+	<section id="result" style="display: none;">
+		<hr>
+		<div class="container py-4">
+			<div class="row">
+				
+				<div class="col-md-4">
+					<div class="table-responsive mb-4">
+						<table class="table table-bordered">
+							<thead>
+								<tr class="tableheading">
+									<th colspan="2">Loan Payment Type</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Monthly Payment</td>
+									<td><span id="lbl-monthlypayment"></span></td>
+								</tr>
+								<tr>
+									<td>(<span class="lbl-termofyear"></span>) Total Rate Between Year</td>
+									<td><span id="lbl-totalinterest"></span></td>
+								</tr>
+								<tr>
+									<td>Loan Amount</td>
+									<td><span id="lbl-principal"></span></td>
+								</tr>
+								<tr>
+									<td>Rate</td>
+									<td><span id="lbl-interestrate"></span>%</td>
+								</tr>
+								<tr>
+									<td>Borrow Year Amount</td>
+									<td><span class="lbl-termofyear"></span> Year</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-md-8">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr class="tableheading">
+									<th colspan="4">(<span class="lbl-termofyear">5</span>) Year Payment Type (Loan Payment Over <span class="lbl-termofyear">5</span> Years)</th>
+								</tr>
+								<tr class="bg-light">
+									<th class="font-weight-normal">Number of year Paid Loan</th>
+									<th class="font-weight-normal">Loan Amount</th>
+									<th class="font-weight-normal">Rate</th>
+									<th class="font-weight-normal">Monthly Payment</th>
+								</tr>
+							</thead>
+							<tbody id="detailloanpayment">
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<footer class="bg-light py-4">
+			<div class="container">
+				<div class="row">
+					<div class="col-6">
+						&copy; 2020 | <a href="index.html" class="text-dark"><em>Home Loan Calculator</em></a>
+					</div>
+					<div class="col-6 text-right">
+						Calculation with JQuery 
+					</div>
+				</div>
+			</div>
+		</footer>
+	</section>
+
+		
+
+	<!-- script -->
+	
+	<script type="text/javascript" src="JQ/js/jquery.min.js"></script>
+	<script type="text/javascript" src="JQ/js/bootstrap.bundle.min.js"></script>
+
+		<script>    
+        //cdn//    
+         
+		function validate() {
+			if (!$.trim($('#loanamount').val()) || $('#loanamount').val()==0) {
+				alert('Please Fill Loan Amount');
+				return;
+			} else if(!$.trim($('#interestrate').val()) || $('#interestrate').val()==0) {
+				alert('Please Fill Rate');
+				return;
+			} else if(!$.trim($('#termofyear').val()) || $('#termofyear').val()==0) {
+				alert('Please Fill Borrowed Year');
+				return;
+			} else if ($('#loanamount').val() < 0 || $('#interestrate').val() < 0 || $('#termofyear').val() < 0) {
+				alert('Your Number Is Minus!Please Check!!!');
+			} else {
+				return true;
+			}
+		}
+
+		$(function() {
+
+			$('#btn-calculate').bind('click', function(){
+				if (validate()) {
+					// first table
+					let p = +$('#loanamount').val();
+					let r = (+$('#interestrate').val() / 100) / 12;
+					let n	= +$('#termofyear').val() * 12;
+
+					let monthlypayment1 = p * ( ( r * (1 + r)**n ) / ((1 + r)**n - 1 ));
+					let monthlypayment = +(monthlypayment1).toFixed();
+
+					$('#lbl-monthlypayment').text(monthlypayment.toLocaleString());
+					$('#lbl-principal').text(p.toLocaleString());
+					$('#lbl-interestrate').text($('#interestrate').val());
+					$('.lbl-termofyear').text($('#termofyear').val());
+
+					// second table
+					$('#detailloanpayment').html(''); // clear previous html
+					let monthnumber = 1, totalinterest = 0;
+					for (let i = n; i > 0 ; i--) {
+						interest = p * r;
+						let html=`<tr>
+					<td>Month # ${monthnumber++}</td>
+					<td>${(+p.toFixed()).toLocaleString()}</td>
+					<td>${(+interest.toFixed()).toLocaleString()}</td>
+					<td>${monthlypayment.toLocaleString()}</td>
+											</tr>`;
+					$('#detailloanpayment').append(html);
+						p = p + interest - monthlypayment1;
+						totalinterest += interest;
+					}
+					$('#lbl-totalinterest').text((+totalinterest.toFixed()).toLocaleString());
+
+					$('#result').slideDown('slow');
+				}
+			});
+
+		})
+			
+
+	</script>
+
+</body>
+</html>
